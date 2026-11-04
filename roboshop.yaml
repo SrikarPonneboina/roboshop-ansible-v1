@@ -5,8 +5,9 @@
     aws_region: "us-east-1"
     ami_id: "ami-0055977a6e828a4f4"
     instance_type: "t3.micro"
-    instance: ['mongodb','redis']
+    instances: ['mongodb','redis','mysql','rabbitmq']
     domain_name: "srikarlabs.space"
+    action: create
   tasks: 
   - name: create ec2 instance
     amazon.aws.ec2_instance:
@@ -15,14 +16,15 @@
       instance_type: "{{ instance_type }}"
       security_groups: ["roboshop-common", "roboshop-{{ item }}"]
       region: "{{ aws_region }}"
-    loop: "{{ instance }}"
+    loop: "{{ instances }}"
+    when: action == "create"
     register: ec2_output
 
   - name: print ec2-instance output
     debug:
       msg: "{{ ec2_output }}"
 
-  - name: update r53 dns records
+  - name: create r53 dns records
     amazon.aws.route53:
       state: present
       zone: "{{ domain_name }}"
@@ -32,6 +34,20 @@
       value: "{{ item.instances[0].private_ip_address }}" 
       overwrite: true
     loop: "{{ ec2_output.results }}"
+    when: action == "create"
+
+  - name: create r53 record for frontend  
+    amazon.aws.route53:
+      state: present
+      zone: "{{ domain_name }}"
+      record: "{{ item.item }}.{{ domain_name }}"
+      type: A
+      ttl: 1
+      value: "{{ item.instances[0].public_ip_address }}"
+      overwrite: true
+    loop: "{{ ec2_output.results }}"
+    when: action == "create" and item.item == "frontend"
+  
 
 
 
