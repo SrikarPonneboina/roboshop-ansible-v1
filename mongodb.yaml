@@ -4,6 +4,7 @@
   tasks:
   - name: copy mongodb repo
     command: cp mongo.repo /etc/yum.repos.d/mongo.repo
+    become: true
   
   - name: install mongodb
     package:
