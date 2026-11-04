@@ -1,0 +1,18 @@
+- name: create ec2 instance and route 53 records
+  hosts: local
+  connection: local
+  vars:
+    aws_region: "us-east-1"
+    ami_id: "ami-0055977a6e828a4f4"
+    instance_type: "t3.micro"
+    instances: ['mongodb','redis']
+    domain_name: "srikarlabs.space"
+  tasks: 
+  - name: create ec2 instance
+    amazon.aws.ec2_instance:
+      name: "roboshop-{{ item }}"
+      image_id: "{{ ami_id }}"
+      instance_type: "{{ instance_type }}"
+      security_groups: ["roboshop-common", "roboshop-{{ item }}"]
+      region: "{{ aws_region }}"
+
