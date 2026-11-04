@@ -16,4 +16,15 @@
       security_groups: ["roboshop-common", "roboshop-{{ item }}"]
       region: "{{ aws_region }}"
     loop: "{{ instance }}"
+    register: ec2_output
+
+  - name: print ec2-instance output
+    debug:
+      msg: "{{ ec2_output }}"
+
+  # - name: update r53 dns records
+  #   amazon.aws.route53:
+  #     state: present
+  #     zone: "{{ domain_name }}"
+  #     record: ""
 
