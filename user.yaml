@@ -21,14 +21,14 @@
       shell: /sbin/nologin
       comment: "roboshop system user"
 
-  - name: remove app directory
+  - name: remove existing app directory
     file:
       path: /app
       state: absent
   
-  - name: remove catalogue.zip
+  - name: remove user.zip
     file: 
-      path: /tmp/catalogue.zip
+      path: /tmp/user.zip
       state: absent
   
   - name: create app directory
@@ -36,25 +36,25 @@
       path: /app
       state: directory
 
-  - name: download user code
+  - name: download user application code
     get_url:
       url: ttps://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/user-v4.zip
-      src: /tmp/user.zip
+      dest: /tmp/user.zip
     
   - name: unzip the user code
     unarchive:
-      path: /tmp/user.zip
-      src: /app
+      src: /tmp/user.zip
+      dest: /app
+      remote_src: true
 
   - name: install dependencies npm
     npm:
       path: /app
 
   - name: create user service file
-    copy:
+    template:
       src: user.service.j2
       dest: /etc/systemd/system/user.service
-      remote_src: true
   
   - name: deamon-reload, enable and start user service
     service:
@@ -63,4 +63,3 @@
       state: started
       enabled: true
 
-      
