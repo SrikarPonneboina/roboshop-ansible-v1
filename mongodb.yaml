@@ -6,7 +6,7 @@
     copy:
       src: mongo.repo
       dest: /etc/yum.repos.d/mongo.repo
-      
+
   - name: install mongodb
     package:
       name: mongodb-org
@@ -21,7 +21,7 @@
   - name: setting up remote connections
     ansible.builtin.replace:
       path: /etc/mongod.conf
-      refexp: '127.0.0.1'
+      regexp: '127.0.0.1'
       replace: '0.0.0.0'
   
   - name: restart mongodb
