@@ -10,10 +10,10 @@
   tasks: 
   - name: create ec2 instance
     amazon.aws.ec2_instance:
-      name: "roboshop-{{ item.instance }}"
+      name: "roboshop-{{ item }}"
       image_id: "{{ ami_id }}"
       instance_type: "{{ instance_type }}"
-      security_groups: ["roboshop-common", "roboshop-{{ item.instance }}"]
+      security_groups: ["roboshop-common", "roboshop-{{ item }}"]
       region: "{{ aws_region }}"
     loop: "{{ instance }}"
 
