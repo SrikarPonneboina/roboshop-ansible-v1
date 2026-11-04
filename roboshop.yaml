@@ -22,9 +22,36 @@
     debug:
       msg: "{{ ec2_output }}"
 
-  # - name: update r53 dns records
-  #   amazon.aws.route53:
-  #     state: present
-  #     zone: "{{ domain_name }}"
-  #     record: ""
+  - name: update r53 dns records
+    amazon.aws.route53:
+      state: present
+      zone: "{{ domain_name }}"
+      record: ""
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Points to be noted:
+# To prevent confusion or collisions, Ansible allows you to rename item to whatever you want using loop_control.
+# Instead of relying on the generic item, you can name it something descriptive like component or db_name. Here is how you do it:
+  # - name: create ec2 instance
+  #   amazon.aws.ec2_instance:
+  #     name: "roboshop-{{ component }}"  # Custom name instead of item
+  #     image_id: "{{ ami_id }}"
+  #     instance_type: "{{ instance_type }}"
+  #     security_groups: ["roboshop-common", "roboshop-{{ component }}"]
+  #     region: "{{ aws_region }}"
+  #   loop: "{{ instance }}"
+  #   loop_control:
+  #     loop_var: component  # This renames 'item' to 'component'
+  #   register: ec2_output
