@@ -3,9 +3,10 @@
   become: true
   tasks:
   - name: copy mongodb repo
-    command: cp mongo.repo /etc/yum.repos.d/mongo.repo
-    become: true
-  
+    copy:
+      src: mongo.repo
+      dest: /etc/yum.repos.d/mongo.repo
+      
   - name: install mongodb
     package:
       name: mongodb-org
