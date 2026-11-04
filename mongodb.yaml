@@ -1,0 +1,24 @@
+- name: setting up mongodb
+  hosts: mongodb
+  tasks:
+  - name: copy mongodb repo
+    command: cp mongo.repo /etc/yum.repos.d/mongo.repo
+  
+  - name: install mongodb
+    package:
+      name: mongodb-org
+      state: present
+  
+  - name: enable and start service
+    service:
+      name: mongod 
+      state: started
+      enabled: yes
+  
+  - name: setting up remote connections
+    ansible.builtin.replace:
+      path: /etc/mongod.conf
+      refexp: '127.0.0.1'
+      replace: '0.0.0.0'
+
+
