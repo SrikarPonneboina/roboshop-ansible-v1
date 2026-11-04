@@ -1,0 +1,99 @@
+- name: configure catalogue server
+  hosts: catalogue
+  become: true
+  tasks:
+  - name: disable default nodejs and enable nodejs:24
+    shell: |
+      dnf module disable nodejs -y
+      dnf module enable nodejs:24 -y
+
+  - name: install nodejs:24
+    dnf:
+      name: nodejs
+      state: present
+
+  - name: create system user roboshop
+    user:
+      name: roboshop
+      create_home: false
+      system: yes
+      home: /app
+      shell: /sbin/nologin
+      comment: "this is roboshop system user"
+      state: present
+  
+  - name: remove the app directory
+    ansible.builtin.file:
+      path: /app
+      state: directory
+      state: absent
+  
+  - name: remove catalogue.zip
+    file:
+      path: /tmp/catalogue.zip
+      state: absent 
+
+  - name: create the app directory
+    ansible.builtin.file:
+      path: /app
+      state: directory
+      state: present
+  
+  # - name: clean up existing code inside /app if present
+  #   ansible.builtin.file:
+  #     path: "/app/{{ item }}"
+  #     state: absent
+  #   loop:
+  #     - node_modules
+  #     - server.js
+  #     - package.json
+
+  - name: download the application code zip to tmp
+    ansible.builtin.get_url:
+      url: https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/catalogue-v4.zip
+      dest: /tmp/catalogue.zip
+
+  - name: unzip the application code
+    unarchive:
+      src: /tmp/catalogue.zip
+      dest: /app
+      remote_src: yes
+  
+  - name: install dependencies
+    npm:
+      path: /app
+  
+  - name: create catalogue service file
+    template:
+      src: catalogue.service.j2
+      dest: /etc/systemd/system/catalogue.service
+
+  - name: copy mongodb repo
+    copy:
+      src: mongo.repo
+      dest: /etc/yum.repos.d/mongo.repo
+  
+  - name: install mongodb client 
+    dnf:
+      name: mongodb-mongosh
+      state: present
+  
+  - name: check whether the data is loaded or not
+    command: mongosh --host {{ mongodb_host }} --quiet --eval 'db.getSiblingDB("catalogue").products.countDocuments()'
+    register: product_count
+
+  - name: print product count
+    debug:
+      msg: "{{ product_count }}"
+    
+  
+  - name: load the products data
+    shell: mongosh --host {{ mongodb_host }} </app/db/master-data.js
+    when: product_count.stdout | int == 0 
+
+  - name: deamon reload catalogue
+    ansible.builtin.systemd:
+      deamon-reload: true
+      name: catalogue
+      state: started
+      enabled: true

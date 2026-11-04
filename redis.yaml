@@ -3,8 +3,9 @@
   become: true
   tasks:
   - name: disable redis verion 6 and enable redis version 7
-    command: dnf module disable redis -y
-    command: dnf module enable redis:7 -y 
+    shell: |
+      dnf module disable redis -y
+      dnf module enable redis:7 -y
 
   - name: install redis
     package:
