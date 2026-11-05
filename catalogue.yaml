@@ -91,15 +91,18 @@
     when: product_count.stdout | int == 0 
 
   - name: deamon reload catalogue
-    systemd:
-      deamon_reload: true
-    tags:
-      - service
-
-  - name: enable and start catalogue
     service:
+      daemon_reload: true
       name: catalogue
       state: started
       enabled: true
     tags:
       - service
+
+  # - name: enable and start catalogue
+  #   service:
+  #     name: catalogue
+  #     state: started
+  #     enabled: true
+  #   tags:
+  #     - service
