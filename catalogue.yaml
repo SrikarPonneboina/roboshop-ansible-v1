@@ -94,7 +94,7 @@
     service:
       deamon-reload: true
     tags:
-      - deamon and service
+      - service
 
   - name: enable and start catalogue
     service:
@@ -102,4 +102,4 @@
       state: started
       enabled: true
     tags:
-      - deamon and service
+      - service
