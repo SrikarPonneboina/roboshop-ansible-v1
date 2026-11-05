@@ -16,3 +16,7 @@
 - check if process is running using: `ps aux | grep ansible-playbook`
 - check with PID: `ps -ef | grep <PID>` (e.g. `ps -ef | grep 2435`) — note: `ps aux` and `ps -ef` both display process information
 - view live output using: `tail -f /home/ec2-user/roboshop-logs/catalogue.log`
+
+- log path under defaults in ansible cfg should be with log_path not logs_path if you give logs path it will load logs to default directory
+
+
