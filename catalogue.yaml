@@ -92,14 +92,17 @@
 
   - name: deamon reload catalogue
     service:
-      deamon-reload: true
-    tags:
-      - service
-
-  - name: enable and start catalogue
-    service:
+      deamon_reload: true
       name: catalogue
       state: started
       enabled: true
     tags:
       - service
+
+  # - name: enable and start catalogue
+  #   service:
+  #     name: catalogue
+  #     state: started
+  #     enabled: true
+  #   tags:
+  #     - service
