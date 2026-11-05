@@ -2,10 +2,10 @@
   hosts: shipping
   become: true
   tasks:
-  - name: enable maven 3.9
+  - name: 1. enable maven 3.9
     command: dnf module enable maven:3.9 -y
 
-  - name: download java and maven package
+  - name: 2. download java and maven package
     dnf:
       name: 
         - maven
