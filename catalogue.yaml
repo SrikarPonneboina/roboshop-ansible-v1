@@ -37,7 +37,6 @@
     ansible.builtin.file:
       path: /app
       state: directory
-      state: present
   
   # - name: clean up existing code inside /app if present
   #   ansible.builtin.file:
