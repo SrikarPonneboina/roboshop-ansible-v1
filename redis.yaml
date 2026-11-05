@@ -30,3 +30,8 @@
       name: redis
       state: started
       enabled: true
+
+
+
+#points to check:
+#ansible redis -m ansible.builtin.debug -a "var=ansible_user" -- checks for variable
