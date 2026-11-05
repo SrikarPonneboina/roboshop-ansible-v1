@@ -91,7 +91,7 @@
     when: product_count.stdout | int == 0 
 
   - name: deamon reload catalogue
-    service:
+    systemd:
       deamon_reload: true
     tags:
       - service
