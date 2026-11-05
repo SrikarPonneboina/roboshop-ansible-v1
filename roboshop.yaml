@@ -82,6 +82,11 @@
 
 #points to check:
 #########################
+#create Ansible control node 
+#install ansible package
+#Aws configure 
+#install botcore and boto3 == pip3.9 install botocore boto3
+#
 # #Wait: false
 #  wait: false, Ansible submits the request to the AWS API, receives confirmation that the request was accepted, and immediately proceeds to the next task without blocking or waiting for the instance to finish booting up or shutting down.
 
