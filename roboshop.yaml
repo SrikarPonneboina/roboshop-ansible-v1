@@ -7,7 +7,7 @@
     instance_type: "t3.micro"
     #when you give it in commandline these variables will be overwritten
     #cmd: ansible-playbook roboshop.yaml -e "instances=['mongodb','redis']"
-    instances: ['mongodb','redis','mysql','rabbitmq']
+    instances: ['mongodb','redis','mysql','rabbitmq','catalogue','user','cart']
     domain_name: "srikarlabs.space"
     action: create
     #action= delete you can give in the commandline directly as it overwrites other variables in this file
