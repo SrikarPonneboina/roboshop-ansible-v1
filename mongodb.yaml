@@ -30,3 +30,12 @@
       state: restarted
 
 
+# - name: Run command in background and save to log
+#   hosts: all
+#   become: yes
+#   tasks:
+#     - name: Execute background process
+#       ansible.builtin.shell:
+#         cmd: "nohup /path/to/your-command --arg > /var/log/your-command.log 2>&1 &"
+#       async: 10
+#       poll: 0
