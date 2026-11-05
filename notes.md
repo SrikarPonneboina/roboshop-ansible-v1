@@ -27,9 +27,8 @@ Here is what each part of the command stands for and tells you:
 nc (Netcat): A versatile networking utility used for reading from and writing to network connections using TCP or UDP.
 -z (Zero-I/O mode): Tells Netcat to scan for listening daemons without actually sending any data. It just checks if the connection can be established.
 -v (Verbose mode): Provides detailed output in your terminal about whether the connection succeeded or failed.
-<managed_node_ip>: The target IP address or hostname of the server you are trying to reach.
+<managed_node_ip>: The target IP address or hostname of the server you are trying to reach. 22: The target port number (port 22 is the standard port for SSH).
 
-22: The target port number (port 22 is the standard port for SSH).
 - Verification: If successful, you will see a message like Connection to <ip> 22 port [tcp/ssh] succeeded!. If it says "Connection refused", the SSH service on the remote node is down or blocked.
 
 
