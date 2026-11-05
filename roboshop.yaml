@@ -86,8 +86,13 @@
 #install ansible package == sudo dnf install ansible -y
 #Aws configure == configure with AWS Access KeyID; AWS Secret Access Key; region
 #install botcore and boto3 == pip3.9 install botocore boto3
+#nohup ansible-playbook 05-catalogue.yaml &> /home/ec2-user/roboshop-logs/catalogue.log &
 #
-# #Wait: false
+#
+#
+#
+#
+# Wait: false
 #  wait: false, Ansible submits the request to the AWS API, receives confirmation that the request was accepted, and immediately proceeds to the next task without blocking or waiting for the instance to finish booting up or shutting down.
 
 
