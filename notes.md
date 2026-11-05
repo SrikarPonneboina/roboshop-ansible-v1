@@ -19,7 +19,7 @@
 
 - log path under defaults in ansible cfg should be with log_path not logs_path if you give logs path it will load logs to default directory
 
-# Step 1: Verify SSH Connectivity and Port Status
+# Step 1: Verify SSH Connectivity and Port Status check network test
 - Run a network test using nc (netcat) or telnet from your control node:
 - `nc -zv <managed_node_ip> 22`
 - The command nc -zv <managed_node_ip> 22 tests whether a specific network port is open and accepting connections on a target machine.
