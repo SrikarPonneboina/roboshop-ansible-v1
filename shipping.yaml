@@ -2,10 +2,10 @@
   hosts: shipping
   become: true
   tasks:
-  - name: 1. enable maven 3.9
+  - name: 1. Enable maven 3.9 module stream via DNF
     command: dnf module enable maven:3.9 -y
 
-  - name: 2. download java and maven package
+  - name: 2. Install Maven and OpenJDK 25 Development Kit
     dnf:
       name: 
         - maven
@@ -13,13 +13,21 @@
         - mysql
       state: present
 
-  - name: 
+  - name: Set Java 25 as the system default using alternatives
+    alternatives:
+      name: java
+      path: /usr/lib/jvm/java-25-openjdk-25.0.1.0.8-1.el9.x86_64/bin/java
 
+  - name: 4. Configure permanent JAVA_HOME environment variable
+    ansible.builtin.shell: |
+      echo "export JAVA_HOME=$(dirname $(dirname $(readlink -f /usr/bin/java)))" > /etc/profile.d/java.sh
+      source /etc/profile.d/java.sh
+    args:
+      executable: /bin/bash
 
   - name: create roboshop system user
     user:
       name: roboshop
-      create_home: false
       system: true
       home: /app
       shell: /sbin/nologin
@@ -51,4 +59,11 @@
       dest: /app
       remote_src: yes
 
-  - name: load the master data
+  - name: Build application package using maven
+    shell:
+      mvn clean package && mv target/shipping.jar shipping.jar 
+    args:
+      chdir: /app
+      executable: /bin/bash
+
+  - name: 
