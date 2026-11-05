@@ -38,7 +38,7 @@
 
   - name: download user application code
     get_url:
-      url: ttps://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/user-v4.zip
+      url: https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/user-v4.zip
       dest: /tmp/user.zip
     
   - name: unzip the user code
