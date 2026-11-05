@@ -87,7 +87,8 @@
 #Aws configure == configure with AWS Access KeyID; AWS Secret Access Key; region
 #install botcore and boto3 == pip3.9 install botocore boto3
 #nohup ansible-playbook 05-catalogue.yaml &> /home/ec2-user/roboshop-logs/catalogue.log &
-#
+#nohup ansible-playbook mongodb.yaml > ansible.log 2>&1 &
+#both commands capture standard output and standard error
 #
 #
 #
