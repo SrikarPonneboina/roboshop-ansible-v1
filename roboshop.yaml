@@ -75,12 +75,13 @@
       name: "roboshop-{{ item }}"
       state: absent
       region: "{{ aws_region }}"
-      wait: false
+      wait: false # when wait=false, it just sends the request to AWS API and when it get back the request if move to next task
     loop: "{{ instances }}"
     when: action == "delete"  
   
 
-
+# #Wait: false
+#  wait: false, Ansible submits the request to the AWS API, receives confirmation that the request was accepted, and immediately proceeds to the next task without blocking or waiting for the instance to finish booting up or shutting down.
 
 
 
