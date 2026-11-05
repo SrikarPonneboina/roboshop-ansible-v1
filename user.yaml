@@ -58,7 +58,7 @@
   
   - name: deamon-reload, enable and start user service
     service:
-      deamon-reload: true
+      daemon_reload: true
       name: user
       state: started
       enabled: true
