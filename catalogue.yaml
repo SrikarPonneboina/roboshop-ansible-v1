@@ -93,6 +93,9 @@
   - name: deamon reload catalogue
     ansible.builtin.systemd:
       deamon-reload: true
+
+  - name: enable and start catalogue
+    service:
       name: catalogue
       state: started
       enabled: true
