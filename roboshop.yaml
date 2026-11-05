@@ -89,7 +89,9 @@
 #nohup ansible-playbook 05-catalogue.yaml &> /home/ec2-user/roboshop-logs/catalogue.log &
 #nohup ansible-playbook mongodb.yaml > ansible.log 2>&1 &
 #both commands capture standard output and standard error
-#
+#ps aux | grep ansible-playbook  == You can check if it's still running using
+#ps -ef | grep 2435 == you can also check wth PID both are same ps aux | ps -ef
+#tail -f /home/ec2-user/roboshop-logs/catalogue.log == And you can view the live output using
 #
 #
 #
