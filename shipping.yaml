@@ -1,0 +1,54 @@
+- name: configure shipping server
+  hosts: shipping
+  become: true
+  tasks:
+  - name: enable maven 3.9
+    command: dnf module enable maven:3.9 -y
+
+  - name: download java and maven package
+    dnf:
+      name: 
+        - maven
+        - java-25-openjdk-devel
+        - mysql
+      state: present
+
+  - name: 
+
+
+  - name: create roboshop system user
+    user:
+      name: roboshop
+      create_home: false
+      system: true
+      home: /app
+      shell: /sbin/nologin
+      comment: "roboshop system user"
+
+  - name: remove the directory if exists
+    file:
+      path: /app
+      state: absent
+  
+  - name: remove the downloaded code if present in /tmp
+    file: 
+      path: /tmp/shipping.zip
+      state: absent
+  
+  - name: create the app directory
+    file: 
+      path: /app
+      state: directory
+  
+  - name: download the code shipping.zip to /tmp
+    get_url:
+      url: https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/shipping-v4.zip
+      dest: /tmp/shipping.zip
+
+  - name: unzip the downloaded code to /app directory
+    unarchive:
+      src: /tmp/shipping.zip
+      dest: /app
+      remote_src: yes
+
+  - name: load the master data
