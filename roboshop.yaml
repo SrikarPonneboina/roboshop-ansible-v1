@@ -83,8 +83,8 @@
 #points to check:
 #########################
 #create Ansible control node 
-#install ansible package
-#Aws configure 
+#install ansible package == sudo dnf install ansible -y
+#Aws configure == configure with AWS Access KeyID; AWS Secret Access Key; region
 #install botcore and boto3 == pip3.9 install botocore boto3
 #
 # #Wait: false
