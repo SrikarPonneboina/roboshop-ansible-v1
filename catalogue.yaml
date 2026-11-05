@@ -91,7 +91,7 @@
     when: product_count.stdout | int == 0 
 
   - name: deamon reload catalogue
-    ansible.builtin.systemd:
+    service:
       deamon-reload: true
 
   - name: enable and start catalogue
