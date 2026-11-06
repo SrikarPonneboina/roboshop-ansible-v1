@@ -8,7 +8,7 @@ catalogue_host: catalogue.srikarlabs.space
 cart_host: cart.srikarlabs.space
 user_host: user.srikarlabs.space
 shipping_host: shipping.srikarlabs.space
-payment: payment.srikarlabs.space
+payment_host: payment.srikarlabs.space
 mysql_root_password: RoboShop@1
 shipping_db_user: shipping
 shipping_db_password: RoboShop@1
