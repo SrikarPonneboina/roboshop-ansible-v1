@@ -69,14 +69,20 @@
   
   - name: print the mvn version output
     debug: 
-      msg: "{{ mvn_default }}"
+      msg: "{{ mvn_default.stdout_lines }}"
 
   - name: Build application package using maven
-    shell:
-      mvn clean package && mv target/shipping.jar shipping.jar 
+    command: mvn clean package
     args:
       chdir: /app
       executable: /bin/bash
-      # Runs 'mvn clean package' inside /app using bash, then renames the output jar
+      # Runs 'mvn clean package' inside /app using bash, then moves the output jar to /app
 
+  - name: move shipping jar file
+    command: mv target/shipping.jar shipping.jar 
+    args:
+      chdir: /app
+      executable: /bin/bash
+  
 
+    
