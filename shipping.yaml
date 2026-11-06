@@ -107,4 +107,23 @@
     tags:
     - cities-check
 
-    
+  - name: load the cities data into mysql
+    shell: mysql -h {{ mysql_host }} -uroot -p{{ mysql_root_password }} < /app/db/master-data.sql
+    when: cities_count.rc != 0 or cities_count.stdout | int == 0
+  
+  - name: create app user mysql
+    shell: mysql -h {{ mysql_host }} -uroot -p{{ mysql_root_password }} < /app/db/app-user.sql
+  
+  - name: copy shipping.service file
+    template:
+      src: shipping.service.j2
+      dest: /etc/systemd/system/shipping.service
+
+  - name: daemon-reload, enable and start service
+    service:
+      daemon_reload: true
+      name: shipping
+      state: started
+      enabled: true
+
+
