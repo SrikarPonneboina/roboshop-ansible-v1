@@ -97,6 +97,7 @@
     shell:
       mysql -h {{ mysql_host }} -u root -p{{ mysql_root_password }} -ss -e "SELECT COUNT(*) FROM cities.cities;"
     register: cities_count
+    ignore_errors: true
     tags:
     - cities-check
 
