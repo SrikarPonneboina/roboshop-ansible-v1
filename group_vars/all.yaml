@@ -4,3 +4,4 @@ mysql_root_password: RoboShop@1
 mongodb_host: mongodb.srikarlabs.space
 redis_host: redis.srikarlabs.space
 catalogue_host: catalogue.srikarlabs.space
+mysql_host: mysql.srikarlabs.space
