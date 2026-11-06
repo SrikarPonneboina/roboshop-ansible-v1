@@ -36,6 +36,11 @@
       state: absent
     loop: "{{ folder_contents.files }}"
   
+  - name: create /app directory
+    file:
+      path: /app
+      state: directory
+      
   - name: download frontend application code
     get_url:
       url: https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/frontend-v4.zip
