@@ -93,5 +93,13 @@
     tags:
     - test
   
+  - name: check cities data exists or not 
+    shell:
+      mysql -h {{ mysql_host }} -u root -p{{ mysql_root_password }} -ss -e "SELECT COUNT(*) FROM cities.cities;"
+    register: cities_count
+
+  - name: print cities count output
+    debug:
+      msg: "{{ cities_count }}"
 
     
