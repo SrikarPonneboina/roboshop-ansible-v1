@@ -59,6 +59,7 @@
       record: "{{ item }}.{{ domain_name }}"
       type: A
       ttl: 1
+    loop: "{{ instances }}"
     when: action == "delete"
   
   - name: delete r53 record for frontend
@@ -68,7 +69,7 @@
       record: "{{ domain_name }}"
       type: A
       ttl: 1
-    when: action == "delete"
+    when: action == "delete" 
 
   - name: delete ec2 instance
     amazon.aws.ec2_instance:
