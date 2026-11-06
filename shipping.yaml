@@ -10,21 +10,22 @@
       name: 
         - maven
         - java-25-openjdk-devel
+        - maven-openjdk25
         - mysql
       state: present
 
-  - name: Set Java 25 as the system default using alternatives
-    alternatives:
-      name: java
-      path: /usr/lib/jvm/java-25-openjdk-25.0.1.0.8-1.el9.x86_64/bin/java
+  # - name: Set Java 25 as the system default using alternatives
+  #   alternatives:
+  #     name: java
+  #     path: /usr/lib/jvm/java-25-openjdk-25.0.1.0.8-1.el9.x86_64/bin/java
 
-  - name: 4. Configure permanent JAVA_HOME environment variable
-    ansible.builtin.shell: |
-      echo "export JAVA_HOME=$(dirname $(dirname $(readlink -f /usr/bin/java)))" > /etc/profile.d/java.sh
-      source /etc/profile.d/java.sh
-    args:  # arguments lets you define additional behaviours like changing directories, setting specific environments, or defining executables.
-      chdir: /app # here it executes the command
-      executable: /bin/bash  # when you use the ansible.builtin.shell module, Ansible uses whatever default shell is configured on the target system (usually /bin/sh).
+  # - name: 4. Configure permanent JAVA_HOME environment variable
+  #   ansible.builtin.shell: |
+  #     echo "export JAVA_HOME=$(dirname $(dirname $(readlink -f /usr/bin/java)))" > /etc/profile.d/java.sh
+  #     source /etc/profile.d/java.sh
+  #   args:  # arguments lets you define additional behaviours like changing directories, setting specific environments, or defining executables.
+  #     chdir: /app # here it executes the command
+  #     executable: /bin/bash  # when you use the ansible.builtin.shell module, Ansible uses whatever default shell is configured on the target system (usually /bin/sh).
 
   - name: create roboshop system user
     user:
