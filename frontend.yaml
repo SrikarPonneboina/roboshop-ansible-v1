@@ -35,11 +35,6 @@
       path: "{{ item.path }}"
       state: absent
     loop: "{{ folder_contents.files }}"
-  
-  - name: create /app directory
-    file:
-      path: /app
-      state: directory
 
   - name: download frontend application code
     get_url:
@@ -49,7 +44,7 @@
   - name: unzip frontend in /app directory
     unarchive:
       src: /tmp/frontend.zip
-      dest: /app
+      dest: /usr/share/nginx/html
       remote_src: true
   
   - name: copy roboshop config file
