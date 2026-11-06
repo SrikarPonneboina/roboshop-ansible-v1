@@ -40,7 +40,7 @@
     file:
       path: /app
       state: directory
-      
+
   - name: download frontend application code
     get_url:
       url: https://raw.githubusercontent.com/daws-92s/roboshop-documentation/refs/heads/main/artifacts/frontend-v4.zip
@@ -55,7 +55,7 @@
   - name: copy roboshop config file
     template:
       src: roboshop.conf.j2
-      dest: /etc/nginx/defalt.d/roboshop.conf
+      dest: /etc/nginx/default.d/roboshop.conf
   
   - name: restart nginx frontend
     service:
